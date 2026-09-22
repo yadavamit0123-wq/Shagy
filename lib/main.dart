@@ -52,24 +52,38 @@ Future<void> main() async {
 
   if(GetPlatform.isWeb){
     await Firebase.initializeApp(options: const FirebaseOptions(
-        apiKey: "AIzaSyD0Z911mOoWCVkeGdjhIKwWFPRgvd6ZyAw",
-        authDomain: "stackmart-500c7.firebaseapp.com",
-        projectId: "stackmart-500c7",
-        storageBucket: "stackmart-500c7.appspot.com",
-        messagingSenderId: "491987943015",
-        appId: "1:491987943015:web:d8bc7ab8dbc9991c8f1ec2"
+      apiKey: 'AIzaSyADlp8Crl_v_egB_xSa-wANQ9PLn15YRvY',
+      appId: '1:108788948261:web:f93ed0c115418402440ecc',
+      messagingSenderId: '108788948261',
+      projectId: 'shagy-80f44',
+      authDomain: 'shagy-80f44.firebaseapp.com',
+      databaseURL: 'https://shagy-80f44-default-rtdb.firebaseio.com',
+      storageBucket: 'shagy-80f44.firebasestorage.app',
+      measurementId: 'G-5MM050KSQ5',
     ));
   } else if(GetPlatform.isAndroid) {
     await Firebase.initializeApp(
       options: const FirebaseOptions(
-        apiKey: "AIzaSyCc3OCd5I2xSlnftZ4bFAbuCzMhgQHLivA",
-        appId: "1:491987943015:android:a6fb4303cc4bf3d18f1ec2",
-        messagingSenderId: "491987943015",
-        projectId: "stackmart-500c7",
+        apiKey: 'AIzaSyDiyJTuXzRSOsF3pOnZHxahJVjaMoUX02k',
+        appId: '1:108788948261:android:8f0e670906e6e065440ecc',
+        messagingSenderId: '108788948261',
+        projectId: 'shagy-80f44',
+        databaseURL: 'https://shagy-80f44-default-rtdb.firebaseio.com',
+        storageBucket: 'shagy-80f44.firebasestorage.app',
       ),
     );
   } else {
-    await Firebase.initializeApp();
+    await Firebase.initializeApp(
+      options: const FirebaseOptions(
+        apiKey: 'AIzaSyCUmUSSAgavPb80P_IhuXZcMnYaH5Bx570',
+        appId: '1:108788948261:ios:b1ed6055fea7b830440ecc',
+        messagingSenderId: '108788948261',
+        projectId: 'shagy-80f44',
+        databaseURL: 'https://shagy-80f44-default-rtdb.firebaseio.com',
+        storageBucket: 'shagy-80f44.firebasestorage.app',
+        iosBundleId: 'com.pt.shagymart',
+      ),
+    );
   }
 
   Map<String, Map<String, String>> languages = await di.init();

@@ -4,18 +4,18 @@ import 'package:sixam_mart/features/language/domain/models/language_model.dart';
 import 'package:sixam_mart/util/images.dart';
 
 class AppConstants {
-  static const String appName = '6amMart';
+  static const String appName = 'Shagy';
   static const double appVersion = 4.0; ///Flutter sdk 3.44.2
 
   static const String fontFamily = 'DMSans';
   static const bool payInWevView = false;
   static const int balanceInputLen = 10;
-  static const String webHostedUrl = 'https://6ammart-react.6amtech.com';
+  static const String webHostedUrl = 'https://shagy.in/app';
   static const bool stopPolylineAnimation = false;
-  static const String googleServerClientId = '491987943015-agln6biv84krpnngdphj87jkko7r9lb8.apps.googleusercontent.com';
+  static const String googleServerClientId = '108788948261-gtnqjio5sgjpcagp0ahneh35gpkufq8p.apps.googleusercontent.com';
   static const String pusherBroadcustUrl = '/api/v1/broadcasting/user-auth';
 
-  static const String baseUrl = 'https://6ammart-admin.6amtech.com';
+  static const String baseUrl = 'https://shagy.in/app';
   static const String categoryUri = '/api/v1/categories';
   static const String topCategoriesUri = '/api/v1/categories/top';
   static const String trendingSearchesUri = '/api/v1/trending-searches';
