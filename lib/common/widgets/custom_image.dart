@@ -20,6 +20,15 @@ class CustomImage extends StatelessWidget {
     this.placeholder = '', this.isHovered = false, this.color, this.cacheWidth, this.cacheHeight,
   });
 
+  String _webImageUrl(String url) {
+    if (url.isEmpty) return url;
+    final base = AppConstants.baseUrl;
+    if (url.startsWith(base) || url.contains('shagy.in/app/storage/')) {
+      return url;
+    }
+    return '$base/image-proxy?url=${Uri.encodeComponent(url)}';
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnimatedScale(
@@ -28,7 +37,7 @@ class CustomImage extends StatelessWidget {
       curve: Curves.easeInOut,
       child: CachedNetworkImage(
         color: color,
-        imageUrl: kIsWeb ? '${AppConstants.baseUrl}/image-proxy?url=$image' : image, height: height, width: width, fit: fit,
+        imageUrl: kIsWeb ? _webImageUrl(image) : image, height: height, width: width, fit: fit,
         memCacheWidth: cacheWidth,
         memCacheHeight: cacheHeight,
         placeholder: (context, url) => Image.asset(
