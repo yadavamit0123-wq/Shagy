@@ -123,6 +123,9 @@ jobs:
           channel: stable
           cache: true
 
+      - name: Precache iOS tooling
+        run: flutter precache --ios
+
       - name: Install Apple certificate and provisioning profile
         env:
           BUILD_CERTIFICATE_BASE64: ${{ secrets.IOS_DIST_CERTIFICATE_BASE64 }}
@@ -151,8 +154,11 @@ jobs:
 
       - name: Install dependencies
         run: |
+          set -euo pipefail
+          # Flutter copies iOS plugin SPM stubs here during pub get; parent must exist (CI rsync error otherwise).
+          mkdir -p build/ios/SourcePackages
           flutter pub get
-          cd ios && pod install && cd ..
+          cd ios && pod install --repo-update && cd ..
 
       - name: Build IPA
         env:
