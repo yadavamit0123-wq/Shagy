@@ -5,7 +5,7 @@
 #
 # iOS secrets: IOS_DIST_CERTIFICATE_BASE64 (.p12), IOS_DIST_CERTIFICATE_PASSWORD,
 # IOS_PROVISIONING_PROFILE_BASE64 (.mobileprovision), IOS_PROVISIONING_PROFILE_NAME,
-# IOS_TEAM_ID (e.g. 7WSYLQ8Y87), IOS_KEYCHAIN_PASSWORD (any strong random string)
+# IOS_TEAM_ID (e.g. T6P93K4C3T), IOS_KEYCHAIN_PASSWORD (any strong random string)
 
 name: Release build
 
@@ -156,7 +156,10 @@ jobs:
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
           security list-keychain -d user -s "$KEYCHAIN_PATH"
           mkdir -p "$HOME/Library/MobileDevice/Provisioning Profiles"
-          cp "$PP_PATH" "$HOME/Library/MobileDevice/Provisioning Profiles/"
+          PROFILE_UUID=$(/usr/libexec/PlistBuddy -c "Print UUID" /dev/stdin <<< "$(/usr/bin/security cms -D -i "$PP_PATH")")
+          cp "$PP_PATH" "$HOME/Library/MobileDevice/Provisioning Profiles/${PROFILE_UUID}.mobileprovision"
+          echo "Installed provisioning profile UUID: ${PROFILE_UUID}"
+          security find-identity -v -p codesigning "$KEYCHAIN_PATH"
 
       - name: Install dependencies
         run: |
@@ -197,6 +200,9 @@ jobs:
           </dict>
           </plist>
           PLIST
+          PBX="ios/Runner.xcodeproj/project.pbxproj"
+          sed -i '' "s/DEVELOPMENT_TEAM = [A-Z0-9]\{10\};/DEVELOPMENT_TEAM = ${IOS_TEAM_ID};/g" "$PBX"
+          sed -i '' "s/PROVISIONING_PROFILE_SPECIFIER = \"[^\"]*\";/PROVISIONING_PROFILE_SPECIFIER = \"${IOS_PROVISIONING_PROFILE_NAME}\";/" "$PBX"
           flutter build ipa --release --export-options-plist=ios/ExportOptions.plist
 
       - name: Upload iOS artifact
