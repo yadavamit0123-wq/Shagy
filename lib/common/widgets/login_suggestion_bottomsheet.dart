@@ -302,7 +302,9 @@ class LoginSuggestionBottomSheet extends StatelessWidget {
     );
 
     SocialLogInBody appleBodyModel = SocialLogInBody(
-      email: credential.email, token: credential.authorizationCode, uniqueId: credential.authorizationCode,
+      email: credential.email,
+      token: credential.identityToken ?? credential.authorizationCode,
+      uniqueId: credential.userIdentifier,
       medium: 'apple', loginType: CentralizeLoginType.social.name, platform: GetPlatform.isIOS ? 'flutter_app' : 'flutter_web',
     );
 
